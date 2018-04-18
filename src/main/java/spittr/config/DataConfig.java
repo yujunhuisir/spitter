@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 public class DataConfig {
@@ -35,5 +36,5 @@ public class DataConfig {
   public JdbcOperations jdbcTemplate(DataSource dataSource) {
     return new JdbcTemplate(dataSource);
   }
-
+  
 }

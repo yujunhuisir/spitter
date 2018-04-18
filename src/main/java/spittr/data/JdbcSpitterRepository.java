@@ -16,7 +16,6 @@ public class JdbcSpitterRepository implements SpitterRepository {
 	public JdbcSpitterRepository(JdbcOperations jdbc) {
 		this.jdbc = jdbc;
 	}
-	@Override
 	public Spitter save(Spitter spitter) {
 		 jdbc.update(
 			        "insert into Spitter (username, password, first_name, last_name, email)" +
@@ -29,14 +28,12 @@ public class JdbcSpitterRepository implements SpitterRepository {
 			    return spitter;
 
 	}
-	@Override
 	public Spitter findByUsername(String username) {
 		return jdbc.queryForObject("select id, username, null, first_name, last_name, email from Spitter where username=?", new SpitterRowMapper(),username);
 		
 	}
 	private class SpitterRowMapper implements RowMapper<Spitter>{
 
-		@Override
 		public Spitter mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
 			return new Spitter(

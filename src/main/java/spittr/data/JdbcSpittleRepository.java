@@ -19,7 +19,6 @@ public class JdbcSpittleRepository implements SpittleRepository {
 		this.jdbc = jdbc;
 	}
 	
-	@Override
 	public List<Spittle> findSpittles(long max, int count) {
 		String sql="select id,message,created_at,longitude,latitude from spittle"
 				+ " where id< ? order by created_at desc limit 20";
@@ -27,7 +26,6 @@ public class JdbcSpittleRepository implements SpittleRepository {
 	}
 	private static class SpittleRowMapper implements RowMapper<Spittle>{
 
-		@Override
 		public Spittle mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
 			return new Spittle(rs.getLong("id"),
@@ -38,20 +36,17 @@ public class JdbcSpittleRepository implements SpittleRepository {
 		}
 		
 	}
-	@Override
 	public Spittle findOne(long id) {
 		return jdbc.queryForObject("select id,message,created_at,longitude,latitude"
 				+ " from spittle"
 				+ " where id=?", new SpittleRowMapper(),id);
 	}
 
-	@Override
 	public List<Spittle> findRecentSpittles() {
 		return jdbc.query("select id,message,created_at,longitude,latitude"
 				+ " from spittle order by created_at desc limit 20", new SpittleRowMapper());
 	}
 
-	@Override
 	public void save(Spittle spittle) {
 		jdbc.update("insert into Spittle(message,created_at,latitude,longitude) values(?,?,?,?)",
 				spittle.getMessage(),
